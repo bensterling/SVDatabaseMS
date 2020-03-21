@@ -1,5 +1,6 @@
 'use strict';
 
+const database = require('../Configuration/postgreSQL');
 const express = require('express');
 const race = express.Router();
 

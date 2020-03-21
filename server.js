@@ -11,13 +11,7 @@ const PORT = process.env.PORT || 4000;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }))
-app.use(session({
-    secret: 'xCufvwEyu14Tuu7l',
-    resave: true,
-    saveUninitialized: true,
-    secure: true
-}));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 //Import Routes
