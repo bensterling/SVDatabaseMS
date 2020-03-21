@@ -2,12 +2,12 @@
 
 const { Pool, Client } = require('pg');
 
-PostGreSQL = new Pool({
+database = new Pool({
     port: 5432,
     password: 'greentomato',
     database: 'postgres',
-    host: '', //Our host
+    host: 'schulichvelocitydb.cpzvldpktisu.us-east-2.rds.amazonaws.com', 
     user: 'postgres',
 });
 
-module.exports = PostGreSQL;
+module.exports = database;
