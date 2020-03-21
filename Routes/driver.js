@@ -4,26 +4,44 @@ const database = require('../Configuration/postgreSQL');
 const express = require('express');
 const driver = express.Router();
 
-driver.get('/getDrivers', async(req, res) => {
+driver.get('/getDrivers', async (req, res) => {
     //Request: 
     //teamId
+    database.func() //This is how you call a stored procedure
+        .then(data => {
 
+        })
+        .catch(error => {
+
+        });
     //Response:
     //Drivers for the specified team
 });
 
-driver.put('/assignDriverToVehicle', async(req, res) => {
+driver.put('/assignDriverToVehicle', async (req, res) => {
     //Request:
     //driverId, vehicleId
+    database.func()
+        .then(data => {
 
+        })
+        .catch(error => {
+
+        });
     //Response:
     //Confirmation or error
 });
 
-driver.post('/postDriver', async(req, res) => {
+driver.post('/postDriver', async (req, res) => {
     //Request:
     //teamId
+    database.func()
+        .then(data => {
 
+        })
+        .catch(error => {
+
+        });
     //Response:
     //Confirmation or error
 });

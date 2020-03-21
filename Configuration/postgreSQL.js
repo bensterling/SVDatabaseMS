@@ -1,12 +1,12 @@
 'use strict';
 
-const { Pool, Client } = require('pg');
+const { Pool } = require('pg');
 
-database = new Pool({
+const database = new Pool({
     port: 5432,
     password: 'greentomato',
     database: 'postgres',
-    host: 'schulichvelocitydb.cpzvldpktisu.us-east-2.rds.amazonaws.com', 
+    host: 'schulichvelocitydb.cpzvldpktisu.us-east-2.rds.amazonaws.com',
     user: 'postgres',
 });
 

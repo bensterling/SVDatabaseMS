@@ -4,26 +4,44 @@ const database = require('../Configuration/postgreSQL');
 const express = require('express');
 const sensor = express.Router();
 
-sensor.get('/getAllSensors', async(req, res) => {
+sensor.get('/getAllSensors', async (req, res) => {
     //Request:
     //VehicleId
+    database.func()
+        .then(data => {
 
+        })
+        .catch(error => {
+
+        });
     //Response:
     //List of all sensors for the given vehicle
 });
 
-sensor.put('/putSensorOutputUnit', async(req, res) => {
+sensor.put('/putSensorOutputUnit', async (req, res) => {
     //Request:
     //SensorId
+    database.func()
+        .then(data => {
 
+        })
+        .catch(error => {
+
+        });
     //Response:
     //Confirmation or error
 });
 
-sensor.post('/postSensor', async(req, res) => {
+sensor.post('/postSensor', async (req, res) => {
     //Request:
     //VehicleId, Sensor(name, outputUnit)
+    database.func()
+        .then(data => {
 
+        })
+        .catch(error => {
+
+        });
     //Response:
     //Confirmation or error
 });

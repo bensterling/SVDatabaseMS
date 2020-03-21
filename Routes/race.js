@@ -4,26 +4,44 @@ const database = require('../Configuration/postgreSQL');
 const express = require('express');
 const race = express.Router();
 
-race.get('/getRaceCSV', async(req, res) => {
+race.get('/getRaceCSV', async (req, res) => {
     //Request:
     //RaceId
+    database.func()
+        .then(data => {
 
+        })
+        .catch(error => {
+
+        });
     //Response:
     //CSV file containing all the logs for the race
 });
 
-race.put('/putEndDate', async(req, res) => {
+race.put('/putEndDate', async (req, res) => {
     //Request:
     //RaceId
+    database.func()
+        .then(data => {
 
+        })
+        .catch(error => {
+
+        });
     //Response:
     //Confirmation or error
 });
 
-race.post('/postRace', async(req, res) => {
+race.post('/postRace', async (req, res) => {
     //Request:
     //VehicleId, Race(startDate)
+    database.func()
+        .then(data => {
 
+        })
+        .catch(error => {
+
+        });
     //Response:
     //Confirmation or error
 });
