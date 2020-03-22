@@ -6,12 +6,12 @@ CREATE TABLE vehicle_spec(
    frame VARCHAR(50) NOT NULL,
    weight FLOAT NOT NULL,
    cg_height FLOAT NOT NULL,
-   differential FLOAT NOT NULL,
+   differential VARCHAR(50) NOT NULL,
    wheelbase FLOAT NOT NULL,
-   tires FLOAT NOT NULL,
-   dampers FLOAT NOT NULL,
-   ecu FLOAT NOT NULL,
-   daq FLOAT NOT NULL,
+   tires VARCHAR(50) NOT NULL,
+   dampers VARCHAR(50) NOT NULL,
+   ecu VARCHAR(50) NOT NULL,
+   daq VARCHAR(50) NOT NULL,
    PRIMARY KEY (vehicle_id, spec_id),
    FOREIGN KEY (vehicle_id) REFERENCES vehicle (vehicle_id) ON UPDATE CASCADE ON DELETE CASCADE
 );

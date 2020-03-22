@@ -1,7 +1,6 @@
--- TODO: Check units are correct.
 CREATE TABLE log(
   log_id SERIAL PRIMARY KEY,
-  utc TIMESTAMP NOT NULL,
+  utc INT NOT NULL,
   value FLOAT NOT NULL,
   race_id INT NOT NULL,
   sensor_id INT NOT NULL,

@@ -1,4 +1,3 @@
--- TODO: Check sensor ID is serial, I.e we don't use serial number as serial ID or something.
 CREATE TABLE sensor(
   sensor_id SERIAL PRIMARY KEY,
   vehicle_id INT NOT NULL,
