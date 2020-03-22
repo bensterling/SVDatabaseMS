@@ -1,13 +1,7 @@
 'use strict';
 
-const { Pool } = require('pg');
-
-const database = new Pool({
-    port: 5432,
-    password: 'greentomato',
-    database: 'postgres',
-    host: 'schulichvelocitydb.cpzvldpktisu.us-east-2.rds.amazonaws.com',
-    user: 'postgres',
-});
+const pgp = require('pg-promise')({});
+const cn = 'postgres://postgres:greentomato@schulichvelocitydb.cpzvldpktisu.us-east-2.rds.amazonaws.com:5432/postgres';
+const database = pgp(cn);
 
 module.exports = database;

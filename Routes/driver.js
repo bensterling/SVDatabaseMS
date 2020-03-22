@@ -18,7 +18,7 @@ driver.get('/getDrivers', async (req, res) => {
     //Drivers for the specified team
 });
 
-driver.put('/assignDriverToVehicle', async (req, res) => {
+driver.post('/assignDriverToVehicle', async (req, res) => {
     //Request:
     //driverId, vehicleId
     database.func()

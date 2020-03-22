@@ -3,6 +3,8 @@ CREATE TABLE team_member(
    first_name VARCHAR (50) NOT NULL,
    last_name VARCHAR (50) NOT NULL,
    years_on_team INT NOT NULL,
+   email VARCHAR(50) NOT NULL,
+   password VARCHAR(255) NOT NULL,
    is_captain BOOLEAN NOT NULL,
    is_engineering_lead BOOLEAN NOT NULL,
    is_subteam_lead BOOLEAN NOT NULL,
