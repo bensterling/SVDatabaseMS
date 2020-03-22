@@ -5,6 +5,7 @@ const express = require('express');
 const vehicleSpec = express.Router();
 
 vehicleSpec.get('/getVehicleSpec', async (req, res) => {
+    //Execute the stored function
     database.func('getVehicleSpec', req.body.vehicleId)
         .then(data => {
             res.status(200).json(data[0]);
@@ -15,6 +16,7 @@ vehicleSpec.get('/getVehicleSpec', async (req, res) => {
 });
 
 vehicleSpec.post('/postVehicleSpec', async (req, res) => {
+    //Execute the stored procedure
     database.proc('postVehicleSpec',
         [
             req.body.vehicleId,

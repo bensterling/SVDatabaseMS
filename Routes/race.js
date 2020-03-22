@@ -35,7 +35,7 @@ race.get('/getRaceCSV', async (req, res) => {
 race.put('/putEndDate', async (req, res) => {
     //Request:
     //raceId
-    database.func()
+    database.proc()
         .then(data => {
 
         })
@@ -49,7 +49,7 @@ race.put('/putEndDate', async (req, res) => {
 race.post('/postRace', async (req, res) => {
     //Request:
     //VehicleId, Race(startDate)
-    database.func()
+    database.proc()
         .then(data => {
 
         })

@@ -21,7 +21,7 @@ subteam.get('/getAllSubteams', async (req, res) => {
 subteam.post('/postSubteam', async (req, res) => {
     //Request:
     //teamId, Subteam(Name, Specialization)
-    database.func()
+    database.proc()
         .then(data => {
 
         })

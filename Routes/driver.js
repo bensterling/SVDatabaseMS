@@ -21,7 +21,7 @@ driver.get('/getDrivers', async (req, res) => {
 driver.post('/assignDriverToVehicle', async (req, res) => {
     //Request:
     //driverId, vehicleId
-    database.func()
+    database.proc()
         .then(data => {
 
         })
@@ -35,7 +35,7 @@ driver.post('/assignDriverToVehicle', async (req, res) => {
 driver.post('/postDriver', async (req, res) => {
     //Request:
     //teamId
-    database.func()
+    database.proc()
         .then(data => {
 
         })

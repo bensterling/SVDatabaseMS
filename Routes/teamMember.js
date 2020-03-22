@@ -35,7 +35,7 @@ teamMember.get('/getAllTeamMembers', async (req, res) => {
 teamMember.put('/putNewName', async (req, res) => {
     //Request:
     //teamMemberId
-    database.func()
+    database.proc()
         .then(data => {
 
         })
@@ -49,7 +49,7 @@ teamMember.put('/putNewName', async (req, res) => {
 teamMember.post('/createTeamMember', async (req, res) => {
     //Request:
     //teamId, TeamMember(FN, LN, Years_on_team)
-    database.func()
+    database.proc()
         .then(data => {
 
         })

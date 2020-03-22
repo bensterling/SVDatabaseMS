@@ -21,7 +21,7 @@ team.get('getAllTeams', async (req, res) => {
 team.post('/postTeam', async (req, res) => {
     //Request:
     //Team(Name, Location, University)
-    database.func()
+    database.proc()
         .then(data => {
 
         })

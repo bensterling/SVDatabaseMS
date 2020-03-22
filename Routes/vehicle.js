@@ -21,7 +21,7 @@ vehicle.get('/getAllVehicles', async (req, res) => {
 vehicle.post('/postVehicle', async (req, res) => {
     //Request:
     //TeamId, Vehicle(Name, SeasonDriven)
-    database.func()
+    database.proc()
         .then(data => {
 
         })

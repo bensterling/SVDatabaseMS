@@ -7,7 +7,7 @@ const log = express.Router();
 log.post('/postLog', async (req, res) => {
     //Request:
     //RaceId, Log(value, sensorId, UTC)
-    database.func()
+    database.proc()
         .then(data => {
 
         })

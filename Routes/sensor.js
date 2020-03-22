@@ -21,7 +21,7 @@ sensor.get('/getAllSensors', async (req, res) => {
 sensor.put('/putSensorOutputUnit', async (req, res) => {
     //Request:
     //SensorId
-    database.func()
+    database.proc()
         .then(data => {
 
         })
@@ -35,7 +35,7 @@ sensor.put('/putSensorOutputUnit', async (req, res) => {
 sensor.post('/postSensor', async (req, res) => {
     //Request:
     //VehicleId, Sensor(name, outputUnit)
-    database.func()
+    database.proc()
         .then(data => {
 
         })
