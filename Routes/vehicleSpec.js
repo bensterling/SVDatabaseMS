@@ -5,28 +5,37 @@ const express = require('express');
 const vehicleSpec = express.Router();
 
 vehicleSpec.get('/getVehicleSpec', async (req, res) => {
-    console.log(req.body)
     database.func('getVehicleSpec', req.body.vehicleId)
         .then(data => {
             res.status(200).json(data[0]);
         })
         .catch(error => {
-            res.status(500).end();
+            res.status(500).send('Error!').end();
         });
 });
 
 vehicleSpec.post('/postVehicleSpec', async (req, res) => {
-    //Request:
-    //VehicleSpec(...)
-    database.func('postVehicleSpec', req.body.vehicleId) //Replace 1 with the req body vehicle ID
+    database.proc('postVehicleSpec',
+        [
+            req.body.vehicleId,
+            req.body.engine,
+            req.body.frame,
+            req.body.weight,
+            req.body.cgHeight,
+            req.body.diff,
+            req.body.wheelbase,
+            req.body.tires,
+            req.body.dampers,
+            req.body.ecu,
+            req.body.daq
+        ]
+    )
         .then(data => {
-
+            res.status(200).send('Success!');
         })
         .catch(error => {
-
+            res.status(500).send('Error!');
         });
-    //Response:
-    //Confirmation or error
 });
 
 module.exports = vehicleSpec;
