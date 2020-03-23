@@ -1,64 +1,61 @@
-'use strict';
+"use strict";
 
-const database = require('../Configuration/postgreSQL');
-const express = require('express');
+const database = require("../Configuration/postgreSQL");
+const express = require("express");
 const teamMember = express.Router();
 
-teamMember.get('/authenticate', async (req, res) => {
-    //Request:
-    //Email, Password
-    database.func()
-        .then(data => {
-
-        })
-        .catch(error => {
-
-        });
-    //Response:
-    //JSON Web Token
+teamMember.get("/authenticate", async (req, res) => {
+  //Request:
+  //Email, Password
+  database
+    .func()
+    .then(data => {})
+    .catch(error => {});
+  //Response:
+  //JSON Web Token
 });
 
-//Zach
-teamMember.get('/getAllTeamMembers', async (req, res) => {
-    //Request:
-    //teamId
-    database.func()
-        .then(data => {
-
-        })
-        .catch(error => {
-
-        });
-    //Response:
-    //List of all team members for the given team
+teamMember.get("/getAllTeamMembers", async (req, res) => {
+  //Request:
+  //teamId
+  database
+    .func("getAllTeamMembers", [req.body.teamId])
+    .then(data => {
+      res
+        .status(200)
+        .json(data[0])
+        .end();
+    })
+    .catch(error => {
+      res
+        .status(500)
+        .send("Error!")
+        .end();
+    });
+  //Response:
+  //List of all team members for the given team
 });
 
-teamMember.put('/putNewName', async (req, res) => {
-    //Request:
-    //teamMemberId
-    database.proc()
-        .then(data => {
-
-        })
-        .catch(error => {
-
-        });
-    //Response:
-    //Confirmation or error
+teamMember.put("/putNewName", async (req, res) => {
+  //Request:
+  //teamMemberId
+  database
+    .proc()
+    .then(data => {})
+    .catch(error => {});
+  //Response:
+  //Confirmation or error
 });
 
-teamMember.post('/createTeamMember', async (req, res) => {
-    //Request:
-    //teamId, TeamMember(FN, LN, Years_on_team)
-    database.proc()
-        .then(data => {
-
-        })
-        .catch(error => {
-
-        });
-    //Response:
-    //Confirmation or error
+teamMember.post("/createTeamMember", async (req, res) => {
+  //Request:
+  //teamId, TeamMember(FN, LN, Years_on_team)
+  database
+    .proc()
+    .then(data => {})
+    .catch(error => {});
+  //Response:
+  //Confirmation or error
 });
 
 module.exports = teamMember;

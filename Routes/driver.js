@@ -1,20 +1,27 @@
-'use strict';
+"use strict";
 
-const database = require('../Configuration/postgreSQL');
-const express = require('express');
+const database = require("../Configuration/postgreSQL");
+const express = require("express");
 const driver = express.Router();
 
 //Zach
 driver.get('/getDrivers', async (req, res) => {
-    //Request: 
+    //Request:
     //teamId
-    database.func()
-        .then(data => {
-
-        })
-        .catch(error => {
-
-        });
+    database
+      .func("getAllDrivers") //This is how you call a stored procedure
+      .then(data => {
+        res
+          .status(200)
+          .json(data[0])
+          .end();
+      })
+      .catch(error => {
+        res
+          .status(500)
+          .send("Error!")
+          .end();
+      });
     //Response:
     //Drivers for the specified team
 });
