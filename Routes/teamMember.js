@@ -18,6 +18,7 @@ teamMember.get('/authenticate', async (req, res) => {
     //JSON Web Token
 });
 
+//Zach
 teamMember.get('/getAllTeamMembers', async (req, res) => {
     //Request:
     //teamId

@@ -4,6 +4,7 @@ const database = require('../Configuration/postgreSQL');
 const express = require('express');
 const subteam = express.Router();
 
+//Zach
 subteam.get('/getAllSubteams', async (req, res) => {
     //Request:
     //teamId

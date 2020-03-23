@@ -1,7 +1,5 @@
--- TODO: Check if units are correct.
 CREATE TABLE vehicle_spec(
    vehicle_id INT NOT NULL,
-   spec_id SERIAL NOT NULL,
    engine VARCHAR(50) NOT NULL,
    frame VARCHAR(50) NOT NULL,
    weight FLOAT NOT NULL,
@@ -12,6 +10,6 @@ CREATE TABLE vehicle_spec(
    dampers VARCHAR(50) NOT NULL,
    ecu VARCHAR(50) NOT NULL,
    daq VARCHAR(50) NOT NULL,
-   PRIMARY KEY (vehicle_id, spec_id),
+   PRIMARY KEY (vehicle_id),
    FOREIGN KEY (vehicle_id) REFERENCES vehicle (vehicle_id) ON UPDATE CASCADE ON DELETE CASCADE
 );

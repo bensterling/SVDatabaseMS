@@ -4,10 +4,11 @@ const database = require('../Configuration/postgreSQL');
 const express = require('express');
 const driver = express.Router();
 
+//Zach
 driver.get('/getDrivers', async (req, res) => {
     //Request: 
     //teamId
-    database.func() //This is how you call a stored procedure
+    database.func()
         .then(data => {
 
         })
@@ -19,31 +20,39 @@ driver.get('/getDrivers', async (req, res) => {
 });
 
 driver.post('/assignDriverToVehicle', async (req, res) => {
-    //Request:
-    //driverId, vehicleId
-    database.proc()
+    //Execute the stored procedure
+    database.proc('assignDriverToVehicle',
+        [
+            req.body.teamId, //teamId will be in the web token
+            req.body.driverId,
+            req.body.vehicleId
+        ])
         .then(data => {
-
+            res.status(200).send('Success!').end();
         })
         .catch(error => {
-
+            res.status(500).send('Error!').end();
         });
-    //Response:
-    //Confirmation or error
 });
 
 driver.post('/postDriver', async (req, res) => {
-    //Request:
-    //teamId
-    database.proc()
+    //Execute the stored procedure
+    database.proc('postDriver',
+        [
+            req.body.teamId, //teamId will be in the web token
+            req.body.firstName,
+            req.body.lastName,
+            req.body.yearsOfExperience,
+            req.body.age,
+            req.body.height,
+            req.body.weight
+        ])
         .then(data => {
-
+            res.status(200).send('Success!').end();
         })
         .catch(error => {
-
+            res.status(500).send('Error!').end();
         });
-    //Response:
-    //Confirmation or error
 });
 
 module.exports = driver;
