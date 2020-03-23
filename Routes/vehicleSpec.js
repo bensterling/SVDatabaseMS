@@ -8,7 +8,6 @@ vehicleSpec.get('/getVehicleSpec', async (req, res) => {
     //Execute the stored function
     database.func('getVehicleSpec', [req.body.teamId, req.body.vehicleId]) //teamId will be in the token
         .then(data => {
-            console.log(data)
             res.status(200).json(data[0]).end();
         })
         .catch(error => {
@@ -35,7 +34,6 @@ vehicleSpec.post('/postVehicleSpec', async (req, res) => {
         ]
     )
         .then(data => {
-            console.log(data)
             res.status(200).send('Success!').end();
         })
         .catch(error => {
