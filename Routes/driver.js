@@ -4,47 +4,48 @@ const database = require("../Configuration/postgreSQL");
 const express = require("express");
 const driver = express.Router();
 
-//Zach
-driver.get('/getDrivers', async (req, res) => {
-    //Request:
-    //teamId
-    database
-      .func("getAllDrivers") //This is how you call a stored procedure
-      .then(data => {
-        res
-          .status(200)
-          .json(data[0])
-          .end();
-      })
-      .catch(error => {
-        res
-          .status(500)
-          .send("Error!")
-          .end();
-      });
-    //Response:
-    //Drivers for the specified team
+driver.get("/getDrivers", async (req, res) => {
+    //Execute the stored function
+    database.func("getDrivers", req.body.teamId) //teamId will be in the web token
+        .then(data => {
+            res
+                .status(200)
+                .json(data[0].getDrivers)
+                .end();
+        })
+        .catch(error => {
+            res
+                .status(500)
+                .send("Error!")
+                .end();
+        });
 });
 
-driver.post('/assignDriverToVehicle', async (req, res) => {
+driver.post("/assignDriverToVehicle", async (req, res) => {
     //Execute the stored procedure
-    database.proc('assignDriverToVehicle',
+    database.proc("assignDriverToVehicle",
         [
             req.body.teamId, //teamId will be in the web token
             req.body.driverId,
             req.body.vehicleId
         ])
         .then(data => {
-            res.status(200).send('Success!').end();
+            res
+                .status(200)
+                .send("Success!")
+                .end();
         })
         .catch(error => {
-            res.status(500).send('Error!').end();
+            res
+                .status(500)
+                .send("Error!")
+                .end();
         });
 });
 
-driver.post('/postDriver', async (req, res) => {
+driver.post("/postDriver", async (req, res) => {
     //Execute the stored procedure
-    database.proc('postDriver',
+    database.proc("postDriver",
         [
             req.body.teamId, //teamId will be in the web token
             req.body.firstName,
@@ -55,10 +56,16 @@ driver.post('/postDriver', async (req, res) => {
             req.body.weight
         ])
         .then(data => {
-            res.status(200).send('Success!').end();
+            res
+                .status(200)
+                .send("Success!")
+                .end();
         })
         .catch(error => {
-            res.status(500).send('Error!').end();
+            res
+                .status(500)
+                .send("Error!")
+                .end();
         });
 });
 

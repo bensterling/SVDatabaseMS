@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-const database = require('../Configuration/postgreSQL');
-const express = require('express');
+const database = require("../Configuration/postgreSQL");
+const express = require("express");
 const sensor = express.Router();
 
-sensor.get('/getAllSensors', async (req, res) => {
+sensor.get("/getSensors", async (req, res) => {
     //Request:
     //VehicleId
     database.func()
@@ -18,7 +18,7 @@ sensor.get('/getAllSensors', async (req, res) => {
     //List of all sensors for the given vehicle
 });
 
-sensor.put('/putSensorOutputUnit', async (req, res) => {
+sensor.put("/putSensorOutputUnit", async (req, res) => {
     //Request:
     //SensorId
     database.proc()
@@ -32,7 +32,7 @@ sensor.put('/putSensorOutputUnit', async (req, res) => {
     //Confirmation or error
 });
 
-sensor.post('/postSensor', async (req, res) => {
+sensor.post("/postSensor", async (req, res) => {
     //Request:
     //VehicleId, Sensor(name, outputUnit)
     database.proc()

@@ -5,26 +5,26 @@ const express = require("express");
 const vehicleSpec = express.Router();
 
 vehicleSpec.get("/getVehicleSpec", async (req, res) => {
-  //Execute the stored function
-  database
-    .func("getVehicleSpec", [req.body.teamId, req.body.vehicleId]) //teamId will be in the token
-    .then(data => {
-      res
-        .status(200)
-        .json(data[0])
-        .end();
-    })
-    .catch(error => {
-      res
-        .status(500)
-        .send("Error!")
-        .end();
-    });
+    //Execute the stored function
+    database
+        .func("getVehicleSpec", [req.body.teamId, req.body.vehicleId]) //teamId will be in the token
+        .then(data => {
+            res
+                .status(200)
+                .json(data[0])
+                .end();
+        })
+        .catch(error => {
+            res
+                .status(500)
+                .send("Error!")
+                .end();
+        });
 });
 
-vehicleSpec.post('/postVehicleSpec', async (req, res) => {
+vehicleSpec.post("/postVehicleSpec", async (req, res) => {
     //Execute the stored procedure
-    database.proc('postVehicleSpec',
+    database.proc("postVehicleSpec",
         [
             req.body.vehicleId,
             req.body.engine,
@@ -38,14 +38,18 @@ vehicleSpec.post('/postVehicleSpec', async (req, res) => {
             req.body.ecu,
             req.body.daq,
             req.body.teamId, //teamId will be in the token
-        ]
-    )
+        ])
         .then(data => {
-            res.status(200).send('Success!').end();
+            res
+                .status(200)
+                .send("Success!")
+                .end();
         })
         .catch(error => {
-            console.log(error)
-            res.status(500).send('Error!').end();
+            res
+                .status(500)
+                .send("Error!")
+                .end();
         });
 });
 
