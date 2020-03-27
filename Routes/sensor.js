@@ -19,9 +19,24 @@ sensor.put("/putSensorOutputUnit", async (req, res) => {
   //Request:
   //SensorId
   database
-    .proc()
-    .then(data => {})
-    .catch(error => {});
+    .proc("putSensorOutputUnit", [
+      req.body.sensorId,
+      req.body.vehicleId,
+      req.body.newOutputUnit,
+      req.body.teamId
+    ])
+    .then(data => {
+      res
+        .status(200)
+        .send("Success!")
+        .end();
+    })
+    .catch(error => {
+      res
+        .status(500)
+        .send("Error!")
+        .end();
+    });
   //Response:
   //Confirmation or error
 });
