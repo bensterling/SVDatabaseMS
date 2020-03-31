@@ -10,5 +10,7 @@ CREATE TABLE team_member(
    is_subteam_lead BOOLEAN NOT NULL,
    is_subteam_member BOOLEAN NOT NULL,
    team_id INT NOT NULL,
+   email VARCHAR(255) NOT NULL,
+   password VARCHAR(255) NOT NULL,
    FOREIGN KEY (team_id) REFERENCES team (team_id) ON UPDATE CASCADE ON DELETE CASCADE
 );

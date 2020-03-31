@@ -2,22 +2,71 @@
 
 const jwt = require("jsonwebtoken");
 
-const withAuth = (req, res, next) => {
+const withAnyAuth = async (req, res, next) => {
+    //Authenticate with API Key
+    if(req.headers.apikey) {
+        req.user = {
+            APIKey: req.headers.apikey //check if API key is valid -- TODO (Go through db and check if key exists)
+        }
+        next();
+        return;
+    }
+
+    //Authenticate with JWT
     const token = req.body.token ||
         req.query.token ||
         req.headers["x-access-token"] ||
         req.cookies.token;
 
-    if (!token) return res.status(401).json({ message: "Authentification Error" });
+    if (!token) return res.status(401).send("Authentification Error").end();
     else {
-        jwt.verify(token, "Secret", (err, decoded) => {
-            if (err) res.status(401).send("Unauthorized, Invalid token");
+        var verified = 0;
+        await jwt.verify(token, "AdminSecret", (err, decoded) => {
+            if (err) verified += 1;
             else {
-                req.forum = decoded.forum;
+                req.user = decoded.user;
                 next();
             }
-        })
+        });
+        await jwt.verify(token, "NonAdminSecret", (err, decoded) => {
+            if (err) verified += 1;
+            else {
+                req.user = decoded.user;
+                next();
+            }
+        });
+        if(verified === 2) {
+            res.status(401).send("Not authorized!").end();
+        }
     }
 };
 
-module.exports = withAuth;
+const withAdminAuth = async(req, res, next) => {
+        //Authenticate with API Key
+        if(req.headers.apikey) {
+            req.user = {
+                APIKey: req.headers.apikey //check if API key is valid
+            }
+            next();
+            return;
+        }
+    
+        //Authenticate with JWT
+        const token = req.body.token ||
+            req.query.token ||
+            req.headers["x-access-token"] ||
+            req.cookies.token;
+    
+        if (!token) return res.status(401).send("Not authorized!").end();
+        else {
+            await jwt.verify(token, "AdminSecret", (err, decoded) => {
+                if (err) res.status(401).send("Not authorized!").end();
+                else {
+                    req.user = decoded.user;
+                    next();
+                }
+            });
+        }
+}
+
+module.exports = [withAnyAuth, withAdminAuth];

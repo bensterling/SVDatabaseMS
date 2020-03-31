@@ -4,7 +4,7 @@ const database = require("../Configuration/postgreSQL");
 const express = require("express");
 const vehicleSpec = express.Router();
 
-vehicleSpec.get("/getVehicleSpec", async (req, res) => {
+vehicleSpec.get("/getVehicleSpec/:teamID/:vehicleID", async (req, res) => {
     //Execute the stored function
     database
         .func("getVehicleSpec", [req.body.teamId, req.body.vehicleId]) //teamId will be in the token
