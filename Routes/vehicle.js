@@ -2,39 +2,33 @@
 
 const database = require("../Configuration/postgreSQL");
 const express = require("express");
+const withAnyAuth = require("../Middleware/auth")[0];
+const withAdminAuth = require("../Middleware/auth")[1];
 const vehicle = express.Router();
 
-vehicle.get("/getAllVehicles", async (req, res) => {
+vehicle.get("/getVehicles", withAnyAuth, async (req, res) => {
+    //Validate the request
+
     //Execute the stored function
-    database.func("getAllVehicles", req.body.teamId) //teamId will be in the token
+    database.func("getVehicles", req.user.APIKey)
         .then(data => {
-            res
-                .status(200)
-                .json(data[0].getAllVehicles)
-                .end();
+            res.status(200).json(data[0].getVehicles).end();
         })
         .catch(error => {
-            res
-                .status(500)
-                .send("Error!")
-                .end();
+            res.status(500).send("Error!").end();
         });
 });
 
-vehicle.post("/postVehicle", async (req, res) => {
+vehicle.post("/postVehicle", withAdminAuth, async (req, res) => {
+    //Validate the request
+
     //Execute the stored procedure
-    database.proc("postVehicle", [req.body.teamId, req.body.name, req.body.seasonsDriven]) //teamId will be in the token
+    database.proc("postVehicle", [req.user.APIKey, req.body.name, req.body.seasonsDriven])
         .then(data => {
-            res
-                .status(200)
-                .send("Success!")
-                .end();
+            res.status(200).send("Success!").end();
         })
         .catch(error => {
-            res
-                .status(500)
-                .send("Error!")
-                .end();
+            res.status(500).send("Error!").end();
         });
 });
 

@@ -2,27 +2,26 @@
 
 const database = require("../Configuration/postgreSQL");
 const express = require("express");
+const withAnyAuth = require("../Middleware/auth")[0];
+const withAdminAuth = require("../Middleware/auth")[1];
 const vehicleSpec = express.Router();
 
-vehicleSpec.get("/getVehicleSpec/:teamID/:vehicleID", async (req, res) => {
+vehicleSpec.get("/getVehicleSpec/:vehicleID", withAnyAuth, async (req, res) => {
+    //Validate the request
+
     //Execute the stored function
-    database
-        .func("getVehicleSpec", [req.body.teamId, req.body.vehicleId]) //teamId will be in the token
+    database.func("getVehicleSpec", [req.user.APIKey, req.params.vehicleID]) 
         .then(data => {
-            res
-                .status(200)
-                .json(data[0])
-                .end();
+            res.status(200).json(data[0].getVehicleSpec).end();
         })
         .catch(error => {
-            res
-                .status(500)
-                .send("Error!")
-                .end();
+            res.status(500).send("Error!").end();
         });
 });
 
-vehicleSpec.post("/postVehicleSpec", async (req, res) => {
+vehicleSpec.post("/postVehicleSpec", withAdminAuth, async (req, res) => {
+    //Validate the request
+    
     //Execute the stored procedure
     database.proc("postVehicleSpec",
         [
@@ -37,19 +36,13 @@ vehicleSpec.post("/postVehicleSpec", async (req, res) => {
             req.body.dampers,
             req.body.ecu,
             req.body.daq,
-            req.body.teamId, //teamId will be in the token
+            req.user.APIKey, 
         ])
         .then(data => {
-            res
-                .status(200)
-                .send("Success!")
-                .end();
+            res.status(200).send("Success!").end();
         })
         .catch(error => {
-            res
-                .status(500)
-                .send("Error!")
-                .end();
+            res.status(500).send("Error!").end();
         });
 });
 

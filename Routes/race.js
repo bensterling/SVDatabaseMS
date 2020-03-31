@@ -2,13 +2,17 @@
 
 const database = require("../Configuration/postgreSQL");
 const express = require("express");
+const withAnyAuth = require("../Middleware/auth")[0];
+const withAdminAuth = require("../Middleware/auth")[1];
 const race = express.Router();
 
 function getLogData(req) {
     //Do getLogs (Will be used for getRaceCSV)
 }
 
-race.get("/getLogs", async (req, res) => {
+race.get("/getLogs", withAnyAuth, async (req, res) => {
+    //Validate the request
+
     //Request:
     //raceId, vehicleId
     database.func()
@@ -22,7 +26,9 @@ race.get("/getLogs", async (req, res) => {
     //CSV file containing all the logs for the race
 });
 
-race.get("/getRaceCSV", async (req, res) => {
+race.get("/getRaceCSV", withAnyAuth, async (req, res) => {
+    //Validate the request
+
     //Request:
     //raceId
     database.func()
@@ -36,7 +42,9 @@ race.get("/getRaceCSV", async (req, res) => {
     //CSV file containing all the logs for the race
 });
 
-race.put("/putEndDate", async (req, res) => {
+race.put("/putEndDate", withAdminAuth, async (req, res) => { //TODO -- Need to involve API key
+    //Validate the request
+
     //Execute stored procedure
     database.proc("putRaceEndDate", [req.body.raceId, req.body.vehicleId])
         .then(data => {
@@ -53,7 +61,9 @@ race.put("/putEndDate", async (req, res) => {
         });
 });
 
-race.post("/postRace", async (req, res) => {
+race.post("/postRace", withAdminAuth, async (req, res) => { //TODO -- Need to involve API Key
+    //Validate the request
+    
     //Execute stored procedure
     database.proc("postRace", [req.body.vehicleId, req.body.startTime, null])
         .then(data => {

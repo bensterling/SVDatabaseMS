@@ -8,7 +8,7 @@ const withAnyAuth = require("../Middleware/auth")[0];
 const team = express.Router();
 
 team.get("/getAllTeams", withAnyAuth, async (req, res) => {
-    //Validate request
+    //Validate the request
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({
@@ -26,7 +26,7 @@ team.get("/getAllTeams", withAnyAuth, async (req, res) => {
 });
 
 team.get("/getTeam", withAnyAuth, async (req, res) => {
-    //Validate request
+    //Validate the request
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({
@@ -44,7 +44,7 @@ team.get("/getTeam", withAnyAuth, async (req, res) => {
 });
 
 team.post("/postTeam", async (req, res) => {
-    //Validate request
+    //Validate the request
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({

@@ -2,52 +2,48 @@
 
 const database = require("../Configuration/postgreSQL");
 const express = require("express");
+const withAnyAuth = require("../Middleware/auth")[0];
+const withAdminAuth = require("../Middleware/auth")[1];
 const driver = express.Router();
 
-driver.get("/getDrivers", async (req, res) => {
+driver.get("/getDrivers", withAnyAuth, async (req, res) => {
+    //Validate the request
+
     //Execute the stored function
-    database.func("getDrivers", req.body.teamId) //teamId will be in the web token
+    database.func("getDrivers", req.user.APIKey)
         .then(data => {
-            res
-                .status(200)
-                .json(data[0].getDrivers)
-                .end();
+            res.status(200).json(data[0].getDrivers).end();
         })
         .catch(error => {
-            res
-                .status(500)
-                .send("Error!")
-                .end();
+            res.status(500).send("Error!").end();
         });
 });
 
-driver.post("/assignDriverToVehicle", async (req, res) => {
+driver.post("/assignDriverToVehicle", withAdminAuth, async (req, res) => {
+    //Validate the request
+
     //Execute the stored procedure
     database.proc("assignDriverToVehicle",
         [
-            req.body.teamId, //teamId will be in the web token
+            req.user.APIKey, 
             req.body.driverId,
             req.body.vehicleId
         ])
         .then(data => {
-            res
-                .status(200)
-                .send("Success!")
-                .end();
+            res.status(200).send("Success!").end();
         })
         .catch(error => {
-            res
-                .status(500)
-                .send("Error!")
-                .end();
+            res.status(500).send("Error!").end();
         });
 });
 
-driver.post("/postDriver", async (req, res) => {
+driver.post("/postDriver", withAdminAuth, async (req, res) => {
+    //Validate the request
+
     //Execute the stored procedure
     database.proc("postDriver",
         [
-            req.body.teamId, //teamId will be in the web token
+            req.user.APIKey,
             req.body.firstName,
             req.body.lastName,
             req.body.yearsOfExperience,
@@ -56,16 +52,10 @@ driver.post("/postDriver", async (req, res) => {
             req.body.weight
         ])
         .then(data => {
-            res
-                .status(200)
-                .send("Success!")
-                .end();
+            res.status(200).send("Success!").end();
         })
         .catch(error => {
-            res
-                .status(500)
-                .send("Error!")
-                .end();
+            res.status(500).send("Error!").end();
         });
 });
 
