@@ -14,7 +14,8 @@ log.post("/postLog", withAdminAuth, async (req, res) => { //TODO - Need to invol
             req.body.utc,
             req.body.value,
             req.body.raceId,
-            req.body.sensorId
+            req.body.sensorId,
+            req.user.APIKey
         ])
         .then(data => {
             res

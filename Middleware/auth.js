@@ -35,9 +35,7 @@ const withAnyAuth = async (req, res, next) => {
                 next();
             }
         });
-        if(verified === 2) {
-            res.status(401).send("Not authorized!").end();
-        }
+        if(verified === 2) res.status(401).send("Not authorized!").end();
     }
 };
 
