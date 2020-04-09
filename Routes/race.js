@@ -31,22 +31,23 @@ race.get("/getRaceCSV/:vehicleId/:raceId", withAnyAuth, async (req, res) => {
             socket.on('connect', () => {
                 socket.emit("generateCSV", data[0].getLogs);
                 socket.on('data', (fileName) => {
+                    //Send the file
                     const filePath = 'LogConverter/' + fileName;
                     const stat = fs.statSync(filePath);
                     res.writeHead(200, {
-                        'Content-Type':'text/csv',
+                        'Content-Type': 'text/csv',
                         'Content-Length': stat.size
                     });
                     var readStream = fs.createReadStream(filePath);
                     readStream.pipe(res);
-
+                    //Delete the temporary csv file
                     fs.unlink(filePath, (err) => {
                         if (err) console.log(err)
                     });
                     socket.close()
                 });
                 socket.on("error", (error) => {
-            
+                    //Handle error sent from python script
                 });
             })
         })
@@ -55,11 +56,18 @@ race.get("/getRaceCSV/:vehicleId/:raceId", withAnyAuth, async (req, res) => {
         });
 });
 
-race.put("/putEndDate", withAdminAuth, async (req, res) => { //TODO -- Need to involve API key
+race.put("/putRaceEndDate", withAdminAuth, async (req, res) => { 
     //Validate the request
 
+    //Generate the current time
+    let endDate = new Date();
+    endDate = endDate.getFullYear() + "-"
+        + endDate.getMonth() + "-"
+        + ("0" + endDate.getDate()).slice(-2) + "-"
+        + endDate.getHours() + ":"
+        + endDate.getMinutes();
     //Execute stored procedure
-    database.proc("putRaceEndDate", [req.body.raceId, req.body.vehicleId])
+    database.proc("putRaceEndDate", [req.user.APIKey, req.body.raceId, req.body.vehicleId, endDate])
         .then(data => {
             res.status(200).send("Success!").end();
         })
@@ -68,11 +76,18 @@ race.put("/putEndDate", withAdminAuth, async (req, res) => { //TODO -- Need to i
         });
 });
 
-race.post("/postRace", withAdminAuth, async (req, res) => { //TODO -- Need to involve API Key
+race.post("/postRace", withAdminAuth, async (req, res) => { 
     //Validate the request
 
+    //Generate the current time
+    let startDate = new Date();
+    startDate = startDate.getFullYear() + "-"
+        + startDate.getMonth() + "-"
+        + ("0" + startDate.getDate()).slice(-2) + "-"
+        + startDate.getHours() + ":"
+        + startDate.getMinutes();
     //Execute stored procedure
-    database.proc("postRace", [req.body.vehicleId, req.body.startTime, null])
+    database.proc("postRace", [req.user.APIKey, req.body.vehicleId, startDate])
         .then(data => {
             res.status(200).send("Success!").end();
         })
