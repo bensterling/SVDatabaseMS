@@ -21,7 +21,6 @@ log.post("/postLog", withAdminAuth, async (req, res) => { //API Key only auth? W
             res.status(200).send("Success!").end();
         })
         .catch(error => {
-            console.log(error)
             res.status(500).send("Error!").end();
         });
 });

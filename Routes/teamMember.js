@@ -85,7 +85,7 @@ teamMember.put("/putNewName", withAnyAuth, async (req, res) => { //TODO
         });
 });
 
-teamMember.post("/postTeamMember", async (req, res) => {
+teamMember.post("/postTeamMember", async (req, res) => { //Need to check that only one of isCaptain, ..., is true
     //Validate the request
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -99,13 +99,13 @@ teamMember.post("/postTeamMember", async (req, res) => {
     //Execute the stored procedure
     database.proc("postTeamMember",
         [
+            req.body.APIKey,
             req.body.firstName,
             req.body.lastName,
             req.body.isCaptain,
             req.body.isEngineeringLead,
             req.body.isSubteamLead,
             req.body.isSubteamMember,
-            req.body.apiKey,
             req.body.email,
             password,
             req.body.subteamName

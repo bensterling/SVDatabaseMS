@@ -25,6 +25,7 @@ vehicleSpec.post("/postVehicleSpec", withAdminAuth, async (req, res) => {
     //Execute the stored procedure
     database.proc("postVehicleSpec",
         [
+            req.user.APIKey, 
             req.body.vehicleId,
             req.body.engine,
             req.body.frame,
@@ -36,7 +37,6 @@ vehicleSpec.post("/postVehicleSpec", withAdminAuth, async (req, res) => {
             req.body.dampers,
             req.body.ecu,
             req.body.daq,
-            req.user.APIKey, 
         ])
         .then(data => {
             res.status(200).send("Success!").end();

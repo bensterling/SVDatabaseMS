@@ -8,7 +8,7 @@ const sensor = express.Router();
 
 sensor.get("/getSensors", withAnyAuth, async (req, res) => {
 	//Validate the request
-	
+
 	//Request:
 	//VehicleId
 	database
@@ -19,61 +19,45 @@ sensor.get("/getSensors", withAnyAuth, async (req, res) => {
 	//List of all sensors for the given vehicle
 });
 
-sensor.put("/putSensorOutputUnit", withAdminAuth, async (req, res) => { //TODO -- Need to involve API Key
+sensor.put("/putSensorOutputUnit", withAdminAuth, async (req, res) => {
 	//Validate the request
 
-	//Request:
-	//SensorId
-	database
-		.proc("putSensorOutputUnit", [
+	//Execute the stored procedure
+	database.proc("putSensorOutputUnit",
+		[
+			req.user.APIKey,
 			req.body.sensorId,
 			req.body.vehicleId,
-			req.body.newOutputUnit,
-			req.body.teamId
+			req.body.outputUnit
 		])
 		.then(data => {
-			res
-				.status(200)
-				.send("Success!")
-				.end();
+			res.status(200).send("Success!").end();
 		})
 		.catch(error => {
-			res
-				.status(500)
-				.send("Error!")
-				.end();
+			res.status(500).send("Error!").end();
 		});
-	//Response:
-	//Confirmation or error
 });
 
-sensor.post("/postSensor", withAdminAuth, async (req, res) => { //TODO -- Need to involve API Key
+sensor.post("/postSensor", withAdminAuth, async (req, res) => {
 	//Validate the request
 
-	//Request:
-	//VehicleId, Sensor(name, outputUnit)
-	database
-		.proc("postSensor", [
+	//Execute the stored procedure
+	database.proc("postSensor",
+		[
+			req.user.APIKey,
 			req.body.vehicleId,
 			req.body.name,
 			req.body.outputUnit,
 			req.body.category,
-			req.body.teamId
+			req.body.lowerBound,
+			req.body.upperBound
 		])
 		.then(data => {
-			res
-				.status(200)
-				.send("Success!")
-				.end();
+			res.status(200).send("Success!").end();
 		})
 		.catch(error => {
-			res
-				.status(500)
-				.send("Error!")
-				.end();
+			res.status(500).send("Error!").end();
 		});
-	//Response:
-	//Confirmation or error
 });
 
 module.exports = sensor;
