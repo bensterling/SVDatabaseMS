@@ -15,6 +15,7 @@ def convertToCSV(sid, data): #Need to add error handling
     fileName = str(uuid.uuid1()) + ".csv"
     with open(fileName, 'w', newline='') as file:
         fieldNames = ['Interval']
+        print(data)
         for sensorName in data[0]["data"]:                  # Create the CSV headers
             fieldNames.append(sensorName)
         writer = csv.writer(file)                           # Write the headers

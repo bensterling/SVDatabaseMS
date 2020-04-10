@@ -27,6 +27,7 @@ race.get("/getRaceCSV/:vehicleId/:raceId", withAnyAuth, async (req, res) => {
     //Execute the stored function
     database.func("getLogs", [req.user.APIKey, req.params.vehicleId, req.params.raceId])
         .then(data => {
+            console.log(data)
             var socket = io.connect('http://localhost:5000', { reconnect: false, transports: ['websocket'] });
             socket.on('connect', () => {
                 socket.emit("generateCSV", data[0].getLogs);
@@ -87,8 +88,6 @@ race.post("/postRace", withAdminAuth, async (req, res) => {
         + startDate.getHours() + ":"
         + startDate.getMinutes();
     //Execute stored procedure
-    console.log(req.user.APIKey);
-    console.log(req.body.vehicleId);
     database.func("postRace", [req.user.APIKey, req.body.vehicleId, startDate])
         .then(data => {
             res.status(200).json({
@@ -96,7 +95,6 @@ race.post("/postRace", withAdminAuth, async (req, res) => {
             }).end();
         })
         .catch(error => {
-            console.log(error)
             res.status(500).send("Error!").end();
         });
 });
