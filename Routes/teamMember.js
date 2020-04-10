@@ -10,12 +10,7 @@ const teamMember = express.Router();
 
 teamMember.get("/authenticate", async (req, res) => {
     //Validate the request
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({
-            errors: errors.array()
-        }).end();
-    }
+    
     //Execute the stored function
     database.func("getTeamMember", req.body.email)
         .then(async data => {
@@ -51,12 +46,7 @@ teamMember.get("/authenticate", async (req, res) => {
 
 teamMember.get("/getAllTeamMembers", withAnyAuth, async (req, res) => {
     //Validate the request
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({
-            errors: errors.array()
-        }).end();
-    }
+    
     //Execute the stored function
     database.func("getAllTeamMembers", req.user.APIKey)
         .then(data => {
@@ -69,12 +59,7 @@ teamMember.get("/getAllTeamMembers", withAnyAuth, async (req, res) => {
 
 teamMember.put("/putNewName", withAnyAuth, async (req, res) => { //TODO
     //Validate the request
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({
-            errors: errors.array()
-        }).end();
-    }
+    
     //Execute the stored procedure
     database.proc("putNewTeamMemberName", [req.user.member_id, req.body.firstName, req.body.lastName])
         .then(data => {
@@ -87,12 +72,7 @@ teamMember.put("/putNewName", withAnyAuth, async (req, res) => { //TODO
 
 teamMember.post("/postTeamMember", async (req, res) => { //Need to check that only one of isCaptain, ..., is true
     //Validate the request
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({
-            errors: errors.array()
-        }).end();
-    }
+    
     //Encrypt the password
     const salt = await bcrypt.genSalt(10);
     const password = await bcrypt.hash(req.body.password, salt);

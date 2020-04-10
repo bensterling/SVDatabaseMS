@@ -9,12 +9,7 @@ const team = express.Router();
 
 team.get("/getAllTeams", withAnyAuth, async (req, res) => {
     //Validate the request
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({
-            errors: errors.array()
-        }).end();
-    }
+    
     //Execute the stored function
     database.func("getAllTeams")
         .then(data => {
@@ -27,12 +22,7 @@ team.get("/getAllTeams", withAnyAuth, async (req, res) => {
 
 team.get("/getTeam", withAnyAuth, async (req, res) => {
     //Validate the request
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({
-            errors: errors.array()
-        }).end();
-    }
+    
     //Execute the stored function
     database.func("getTeam", req.user.APIKey)
         .then(data => {
@@ -45,12 +35,7 @@ team.get("/getTeam", withAnyAuth, async (req, res) => {
 
 team.post("/postTeam", async (req, res) => {
     //Validate the request
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({
-            errors: errors.array()
-        }).end();
-    }
+    
     //Execute the stored procedure
     const apiKey = (uuidAPIKey.create()).apiKey;
     database.proc("postTeam",

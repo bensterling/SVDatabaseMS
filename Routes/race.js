@@ -87,11 +87,16 @@ race.post("/postRace", withAdminAuth, async (req, res) => {
         + startDate.getHours() + ":"
         + startDate.getMinutes();
     //Execute stored procedure
-    database.proc("postRace", [req.user.APIKey, req.body.vehicleId, startDate])
+    console.log(req.user.APIKey);
+    console.log(req.body.vehicleId);
+    database.func("postRace", [req.user.APIKey, req.body.vehicleId, startDate])
         .then(data => {
-            res.status(200).send("Success!").end();
+            res.status(200).json({
+                race_id: data[0].rv
+            }).end();
         })
         .catch(error => {
+            console.log(error)
             res.status(500).send("Error!").end();
         });
 });
