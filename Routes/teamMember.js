@@ -61,11 +61,12 @@ teamMember.put("/putNewName", withAnyAuth, async (req, res) => { //TODO
     //Validate the request
     
     //Execute the stored procedure
-    database.proc("putNewTeamMemberName", [req.user.member_id, req.body.firstName, req.body.lastName])
+    database.proc("putNewName", [req.user.member_id, req.body.firstName, req.body.lastName])
         .then(data => {
             res.status(200).send('Success!').end();
         })
         .catch(error => {
+            console.log(error)
             res.status(500).send("Error!").end();
         });
 });

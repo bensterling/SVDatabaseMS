@@ -10,7 +10,7 @@ app = socketio.WSGIApp(sio, static_files={})
 def connect(sid, environ):
     print("Client Connected!")
 
-@sio.on('generateCSV')
+@sio.on('generateCSV') #TODO Sort this code out allow empty cells
 def convertToCSV(sid, data): #Need to add error handling
     fileName = str(uuid.uuid1()) + ".csv"
     with open(fileName, 'w', newline='') as file:
